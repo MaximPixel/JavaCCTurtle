@@ -87,7 +87,7 @@ public class TurtlePrint {
 		},
 	};
 	
-	public static TurtleCommand turtle = new TurtleCommand();
+	public static TurtleWriter turtle = new TurtleWriter();
 	
 	public static final String blockName = "minecraft:cobblestone";
 	
@@ -96,7 +96,7 @@ public class TurtlePrint {
 		str = str.getZeroStructure();
 		str.print();
 		
-		TurtleCommand turtleCmd = new TurtleCommand();
+		TurtleWriter turtleCmd = new TurtleWriter();
 		
 		boolean reverseX = false, reverseZ = false;
 		

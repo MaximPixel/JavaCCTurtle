@@ -2,15 +2,15 @@ package net.turtle;
 
 import java.util.ArrayList;
 
-public class TurtleCommand extends Turtle {
+public class TurtleWriter extends Turtle {
 	
 	private ArrayList<String> commands = new ArrayList();
 	
-	public TurtleCommand() {
+	public TurtleWriter() {
 		super();
 	}
 	
-	public TurtleCommand(BlockPos pos, EnumRot rot) {
+	public TurtleWriter(BlockPos pos, EnumRot rot) {
 		super(pos, rot);
 	}
 	

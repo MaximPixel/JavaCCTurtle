@@ -2,6 +2,8 @@ package net.turtle;
 
 import java.util.ArrayList;
 
+import net.turtle.command.TurtleCommands;
+
 public class TurtleWriter extends Turtle {
 	
 	private ArrayList<String> commands = new ArrayList();
@@ -15,70 +17,69 @@ public class TurtleWriter extends Turtle {
 	}
 	
 	@Override
-	public void forward() {
-		super.forward();
-		addCommand("forward");
+	public TurtleActionResult forward() {
+		addCommand(TurtleCommands.FORWARD_NAMES[0]);
+		return super.forward();
 	}
 	
 	@Override
-	public void back() {
-		super.back();
-		addCommand("back");
+	public TurtleActionResult back() {
+		addCommand(TurtleCommands.BACK_NAMES[0]);
+		return super.back();
 	}
 	
 	@Override
-	public void up() {
-		super.up();
-		addCommand("up");
+	public TurtleActionResult up() {
+		addCommand(TurtleCommands.UP_NAMES[0]);
+		return super.up();
 	}
 	
 	@Override
-	public void down() {
-		super.down();
-		addCommand("down");
+	public TurtleActionResult down() {
+		addCommand(TurtleCommands.DOWN_NAMES[0]);
+		return super.down();
 	}
 	
 	@Override
-	public void turnLeft() {
-		super.turnLeft();
-		addCommand("left");
+	public TurtleActionResult turnLeft() {
+		addCommand(TurtleCommands.TURN_LEFT_NAMES[0]);
+		return super.turnLeft();
 	}
 	
 	@Override
-	public void turnRight() {
-		super.turnRight();
-		addCommand("right");
+	public TurtleActionResult turnRight() {
+		addCommand(TurtleCommands.TURN_RIGHT_NAMES[0]);
+		return super.turnRight();
 	}
 	
 	@Override
-	public void turnAround() {
-		super.turnAround();
-		addCommand("right");
-		addCommand("right");
+	public TurtleActionResult turnAround() {
+		addCommand(TurtleCommands.TURN_AROUND_NAMES[0]);
+		return super.turnAround();
 	}
 	
 	@Override
-	public void select(int selectedSlot) {
-		super.select(selectedSlot);
+	public TurtleActionResult select(int selectedSlot) {
 		addCommand("select " + selectedSlot);
+		return super.select(selectedSlot);
 	}
 	
 	@Override
-	public void place(String blockName) {
-		super.place(blockName);
+	public TurtleActionResult place(String blockName) {
 		addCommand("place " + blockName);
+		return super.place(blockName);
 	}
 	
 	@Override
-	public void placeDown(String blockName) {
-		super.placeDown(blockName);
+	public TurtleActionResult placeDown(String blockName) {
 		addCommand("placed " + blockName);
+		return super.placeDown(blockName);
 	}
 	
 	@Override
-	public void placeUp(String blockName) {
-		super.placeUp(blockName);
+	public TurtleActionResult placeUp(String blockName) {
 		addCommand("placeu " + blockName);
+		return super.placeUp(blockName);
 	}
 	
 	public void addCommand(String command) {

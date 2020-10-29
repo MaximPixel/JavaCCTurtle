@@ -18,42 +18,49 @@ public class Turtle implements ITurtle {
 	}
 	
 	@Override
-	public void forward() {
+	public TurtleActionResult forward() {
 		pos = pos.offset(rot);
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void back() {
+	public TurtleActionResult back() {
 		pos = pos.offset(rot, -1);
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void up() {
+	public TurtleActionResult up() {
 		pos = pos.add(0, 1, 0);
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void down() {
+	public TurtleActionResult down() {
 		pos = pos.add(0, -1, 0);
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void turnLeft() {
+	public TurtleActionResult turnLeft() {
 		rot = rot.getLeft();
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void turnRight() {
+	public TurtleActionResult turnRight() {
 		rot = rot.getRight();
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void turnAround() {
+	public TurtleActionResult turnAround() {
 		rot = rot.getOpposite();
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void turnAt(EnumRot rot) {
+	public TurtleActionResult turnAt(EnumRot rot) {
 		if (getRot().getLeft() == rot) {
 			turnLeft();
 		} else if (getRot().getRight() == rot) {
@@ -61,56 +68,62 @@ public class Turtle implements ITurtle {
 		} else if (getRot().getOpposite() == rot) {
 			turnAround();
 		}
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void turnForMove(int x, int z) {
-		if (x == getPos().getX() && z == getPos().getZ()) {
-			return;
+	public TurtleActionResult turnForMove(int x, int z) {
+		if (x != getPos().getX() || z != getPos().getZ()) {
+			if (x > getPos().getX()) {
+				turnAt(EnumRot.FORWARD);
+			} else if (z > getPos().getZ()) {
+				turnAt(EnumRot.RIGHT);
+			} else if (x < getPos().getX()) {
+				turnAt(EnumRot.BACK);
+			} else if (z < getPos().getZ()) {
+				turnAt(EnumRot.LEFT);
+			}
 		}
-		if (x > getPos().getX()) {
-			turnAt(EnumRot.FORWARD);
-		} else if (z > getPos().getZ()) {
-			turnAt(EnumRot.RIGHT);
-		} else if (x < getPos().getX()) {
-			turnAt(EnumRot.BACK);
-		} else if (z < getPos().getZ()) {
-			turnAt(EnumRot.LEFT);
-		}
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void moveAt(int x, int z) {
+	public TurtleActionResult moveAt(int x, int z) {
 		while (x != getPos().getX() || z != getPos().getZ()) {
 			turnForMove(x, z);
 			forward();
 		}
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void select(int selectedSlot) {
+	public TurtleActionResult select(int selectedSlot) {
 		this.selectedSlot = selectedSlot;
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void place(String blockName) {
+	public TurtleActionResult place(String blockName) {
 		if (blocksListener != null) {
 			blocksListener.addBlock(pos.offset(rot));
 		}
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void placeDown(String blockName) {
+	public TurtleActionResult placeDown(String blockName) {
 		if (blocksListener != null) {
 			blocksListener.addBlock(pos.add(0, -1, 0));
 		}
+		return new TurtleActionResult(true);
 	}
 
 	@Override
-	public void placeUp(String blockName) {
+	public TurtleActionResult placeUp(String blockName) {
 		if (blocksListener != null) {
 			blocksListener.addBlock(pos.add(0, 1, 0));
 		}
+		return new TurtleActionResult(true);
 	}
 
 	@Override

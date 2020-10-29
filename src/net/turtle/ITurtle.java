@@ -2,33 +2,33 @@ package net.turtle;
 
 public interface ITurtle {
 	
-	void forward();
+	TurtleActionResult forward();
 	
-	void back();
+	TurtleActionResult back();
 	
-	void up();
+	TurtleActionResult up();
 	
-	void down();
+	TurtleActionResult down();
 	
-	void turnLeft();
+	TurtleActionResult turnLeft();
 	
-	void turnRight();
+	TurtleActionResult turnRight();
 	
-	void turnAround();
+	TurtleActionResult turnAround();
 	
-	void turnAt(EnumRot rot);
+	TurtleActionResult turnAt(EnumRot rot);
 	
-	void turnForMove(int x, int y);
+	TurtleActionResult turnForMove(int x, int y);
 	
-	void moveAt(int x, int y);
+	TurtleActionResult moveAt(int x, int y);
 	
-	void select(int selectedSlot);
+	TurtleActionResult select(int selectedSlot);
 	
-	void place(String blockName);
+	TurtleActionResult place(String blockName);
 	
-	void placeDown(String blockName);
+	TurtleActionResult placeDown(String blockName);
 	
-	void placeUp(String blockName);
+	TurtleActionResult placeUp(String blockName);
 	
 	BlockPos getPos();
 	

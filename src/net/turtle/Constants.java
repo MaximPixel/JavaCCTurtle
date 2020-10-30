@@ -18,5 +18,7 @@ public final class Constants {
 			PLACED = new String[] {"placeDown", "placeD", "plcd", "pd"},
 			PLACEU = new String[] {"placeUp", "placeU", "plcu", "pu"},
 			
-			DEFINE = new String[] {"define", "def"};
+			DEFINE = new String[] {"define", "def"},
+			
+			CHECK = new String[] {"check", "chck", "chk", "ch", "c"};
 }

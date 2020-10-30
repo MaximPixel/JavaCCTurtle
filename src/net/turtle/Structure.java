@@ -34,7 +34,7 @@ public class Structure {
 				}
 			}
 		}
-		newStr.init();
+		newStr.refreshSizes();
 		
 		return newStr;
 	}
@@ -59,7 +59,7 @@ public class Structure {
 				}
 			}
 		}
-		newStr.init();
+		newStr.refreshSizes();
 		
 		return newStr;
 	}
@@ -72,7 +72,7 @@ public class Structure {
 		for (BlockPos b : blocks) {
 			this.blocks.add(b.add(offset));
 		}
-		init();
+		refreshSizes();
 	}
 	
 	public Structure getZeroStructure() {
@@ -83,15 +83,15 @@ public class Structure {
 		if (!blocks.contains(pos)) {
 			blocks.add(pos);
 		}
-		init();
+		refreshSizes();
 	}
 	
 	public void removeBlock(BlockPos pos) {
 		blocks.remove(pos);
-		init();
+		refreshSizes();
 	}
 	
-	public void init() {
+	public void refreshSizes() {
 		minX = Integer.MAX_VALUE;
 		minY = Integer.MAX_VALUE;
 		minZ = Integer.MAX_VALUE;

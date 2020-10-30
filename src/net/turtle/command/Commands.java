@@ -10,6 +10,7 @@ public final class Commands {
 	public static TurnAtCommand TURN_AT;
 	public static PlaceCommand PLACE, PLACED, PLACEU;
 	public static DefineCommand DEFINE;
+	public static CheckCommand CHECK;
 	
 	public void register() {
 		FORWARD = new BaseCommand(context -> context.getTurtle().forward(), Constants.FORWARD_NAMES);
@@ -28,6 +29,8 @@ public final class Commands {
 		PLACEU = new PlaceCommand(Constants.PLACEU, PlaceCommand.PLACEU);
 		
 		DEFINE = new DefineCommand(Constants.DEFINE);
+		
+		CHECK = new CheckCommand(Constants.CHECK);
 	}
 	
 	private static Commands instance = new Commands();

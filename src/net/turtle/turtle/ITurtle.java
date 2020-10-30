@@ -10,7 +10,7 @@ import net.turtle.command.Command;
 import net.turtle.command.CommandContext;
 import net.turtle.command.Commands;
 
-public interface ITurtle extends IDefine {
+public interface ITurtle extends IDefine, ICheck {
 	
 	TurtleActionResult forward();
 	
@@ -93,5 +93,10 @@ public interface ITurtle extends IDefine {
 	@Override
 	default boolean hasDefinedValue(String variable) {
 		return getDefineHelper().hasDefinedValue(variable);
+	}
+	
+	@Override
+	default boolean hasBlocks(String block, int amount) {
+		return true;
 	}
 }

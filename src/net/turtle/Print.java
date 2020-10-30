@@ -44,7 +44,6 @@ public class Print {
 		System.out.println("Output:");
 		System.out.println("===========");
 		
-		outputStr.init();
 		outputStr.print();
 		
 		File outputFile = new File("code.ts");

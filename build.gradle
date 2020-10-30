@@ -1,0 +1,27 @@
+
+
+plugins {
+	id "java-library"
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ["src"]
+		}
+	}
+}
+
+repositories {
+	mavenCentral()
+	jcenter()
+	maven { url 'https://jitpack.io/' }
+}
+
+dependencies {
+	api 'org.apache.commons:commons-math3:3.6.1'
+    implementation 'com.google.guava:guava:28.2-jre'
+    testImplementation 'junit:junit:4.12'
+    
+	compileOnly 'com.github.Querz:NBT:5.2'
+}

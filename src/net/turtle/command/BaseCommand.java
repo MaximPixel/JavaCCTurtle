@@ -2,11 +2,11 @@ package net.turtle.command;
 
 import net.turtle.IResult;
 
-public class BaseTurtleCommand extends Command {
+public class BaseCommand extends Command {
 
 	private final ICommandExecute executor;
 	
-	public BaseTurtleCommand(ICommandExecute executor, String... names) {
+	public BaseCommand(ICommandExecute executor, String... names) {
 		super(names[0], names);
 		this.executor = executor;
 	}

@@ -68,20 +68,26 @@ public class TurtleWriter extends Turtle {
 	
 	@Override
 	public TurtleActionResult place(String blockName) {
-		addCommand("place " + blockName);
+		addCommand(Constants.PLACE[0] + " " + blockName);
 		return super.place(blockName);
 	}
 	
 	@Override
 	public TurtleActionResult placeDown(String blockName) {
-		addCommand("placed " + blockName);
+		addCommand(Constants.PLACED[0] + " " + blockName);
 		return super.placeDown(blockName);
 	}
 	
 	@Override
 	public TurtleActionResult placeUp(String blockName) {
-		addCommand("placeu " + blockName);
+		addCommand(Constants.PLACEU[0] + " " + blockName);
 		return super.placeUp(blockName);
+	}
+	
+	@Override
+	public void define(String variable, String value) {
+		addCommand(Constants.DEFINE[0] + " " + variable + " " + value);
+		super.define(variable, value);
 	}
 	
 	public void addCommand(String command) {

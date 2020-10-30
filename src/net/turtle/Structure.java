@@ -163,6 +163,8 @@ public class Structure {
 	}
 
 	public void print() {
+		System.out.println("============");
+		System.out.println("Structure " + getXSize() + " " + getYSize() + " " + getZSize() + " " + getBlocksCount());
 		for (int a = minY; a <= maxY; a++) {
 			System.out.println("");
 			for (int b = minZ; b <= maxZ; b++) {
@@ -175,6 +177,7 @@ public class Structure {
 				System.out.println("\"" + line + "\"");
 			}
 		}
+		System.out.println("============");
 	}
 	
 	public ArrayList<BlockPos> getBlocksLine(int y, int z) {
@@ -185,6 +188,10 @@ public class Structure {
 			}
 		}
 		return list;
+	}
+	
+	public int getBlocksCount() {
+		return blocks.size();
 	}
 
 	@Override

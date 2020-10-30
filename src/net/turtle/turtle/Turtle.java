@@ -12,6 +12,8 @@ public class Turtle implements ITurtle {
 	
 	private IBlocksListener blocksListener;
 	
+	private DefineHelper defineHelper = new DefineHelper();
+	
 	public Turtle() {
 		this(BlockPos.ZERO, EnumRot.FORWARD);
 	}
@@ -145,36 +147,6 @@ public class Turtle implements ITurtle {
 		return selectedSlot;
 	}
 	
-	@Override
-	public void executeCommand(String cmd) {
-		String[] args = cmd.split(" ");
-		if (args.length >= 1) {
-			if (args[0].equalsIgnoreCase("forward")) {
-				forward();
-			} else if (args[0].equalsIgnoreCase("back")) {
-				back();
-			} else if (args[0].equalsIgnoreCase("down")) {
-				down();
-			} else if (args[0].equalsIgnoreCase("up")) {
-				up();
-			} else if (args[0].equalsIgnoreCase("left")) {
-				turnLeft();
-			} else if (args[0].equalsIgnoreCase("right")) {
-				turnRight();
-			}
-			
-			if (args.length >= 2) {
-				if (args[0].equalsIgnoreCase("place")) {
-					place(args[1]);
-				} else if (args[0].equalsIgnoreCase("placed")) {
-					placeDown(args[1]);
-				} else if (args[0].equalsIgnoreCase("placeu")) {
-					placeUp(args[1]);
-				}
-			}
-		}
-	}
-	
 	public void setBlocksListener(IBlocksListener blocksListener) {
 		this.blocksListener = blocksListener;
 	}
@@ -182,5 +154,10 @@ public class Turtle implements ITurtle {
 	@Override
 	public String toString() {
 		return "Turtle [pos=" + pos + ", rot=" + rot + "]";
+	}
+
+	@Override
+	public DefineHelper getDefineHelper() {
+		return defineHelper;
 	}
 }

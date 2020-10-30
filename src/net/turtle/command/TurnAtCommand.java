@@ -3,9 +3,9 @@ package net.turtle.command;
 import net.turtle.EnumRot;
 import net.turtle.IResult;
 
-public class TurtleCommandTurnAt extends Command {
+public class TurnAtCommand extends Command {
 
-	public TurtleCommandTurnAt(String... names) {
+	public TurnAtCommand(String... names) {
 		super(names[0], names);
 	}
 

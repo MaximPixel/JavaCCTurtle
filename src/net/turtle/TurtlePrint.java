@@ -5,23 +5,23 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+import net.turtle.command.TurtleCommands;
 import net.turtle.turtle.ITurtle;
 import net.turtle.turtle.Turtle;
 import net.turtle.turtle.TurtleWriter;
 
 public class TurtlePrint {
 	
-	public static TurtleWriter turtle = new TurtleWriter();
-	
-	public static final String blockName = "minecraft:cobblestone";
-	
 	public static void main(String... args) {
+		TurtleCommands.getInstance().register();
+		
 		Structure str = ExampleStructures.EXAMPLE;
 		
 		str.print();
 		
 		TurtleWriter turtleCmd = new TurtleWriter();
 		
+		turtleCmd.define("a", "minecraft:cobblestone");
 		print(str, turtleCmd);
 		
 		Turtle turtle = new Turtle();
@@ -44,6 +44,7 @@ public class TurtlePrint {
 		System.out.println("Output:");
 		System.out.println("===========");
 		
+		outputStr.init();
 		outputStr.print();
 		
 		File outputFile = new File("code.ts");
@@ -77,7 +78,7 @@ public class TurtlePrint {
 				for (int x = 0; x < structure.getXSize(); x++) {
 					BlockPos pos = new BlockPos(reverseX ? structure.getXSize() - x - 1 : x, y, trueZ);
 					if (structure.getBlocks().contains(pos)) {
-						turtle.placeDown(blockName);
+						turtle.placeDown("a");
 					}
 					if (x != structure.getXSize() - 1) {
 						turtle.forward();

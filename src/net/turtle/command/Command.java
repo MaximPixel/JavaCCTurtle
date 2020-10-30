@@ -12,10 +12,10 @@ public abstract class Command {
 		this.names = names;
 		
 		for (String name : names) {
-			if (TurtleCommands.COMMANDS_BY_NAME.containsKey(name)) {
-				throw new RuntimeException("Name collision!");
+			if (TurtleCommands.getInstance().commandsByName.containsKey(name)) {
+				throw new IllegalArgumentException("Name collision!");
 			} else {
-				TurtleCommands.COMMANDS_BY_NAME.put(name, this);
+				TurtleCommands.getInstance().commandsByName.put(name, this);
 			}
 		}
 	}

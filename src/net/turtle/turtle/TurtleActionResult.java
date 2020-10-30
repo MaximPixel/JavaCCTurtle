@@ -1,4 +1,6 @@
-package net.turtle;
+package net.turtle.turtle;
+
+import net.turtle.IResult;
 
 public final class TurtleActionResult implements IResult {
 	

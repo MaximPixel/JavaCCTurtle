@@ -1,6 +1,6 @@
 package net.turtle.command;
 
-import net.turtle.ITurtle;
+import net.turtle.turtle.ITurtle;
 
 public final class CommandContext {
 	

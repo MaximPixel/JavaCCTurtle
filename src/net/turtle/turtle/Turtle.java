@@ -1,4 +1,8 @@
-package net.turtle;
+package net.turtle.turtle;
+
+import net.turtle.BlockPos;
+import net.turtle.EnumRot;
+import net.turtle.IBlocksListener;
 
 public class Turtle implements ITurtle {
 	

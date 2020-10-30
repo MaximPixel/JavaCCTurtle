@@ -1,30 +1,22 @@
 package net.turtle;
 
 import java.util.Arrays;
-import java.util.function.Supplier;
-
-import net.turtle.command.TurtleCommands;
 
 public enum EnumRot {
-	FORWARD	(0, 1, 0, 3, 1, 2, () -> TurtleCommands.FORWARD_NAMES),
-	RIGHT	(1, 0, 1, 0, 2, 3, () -> TurtleCommands.TURN_RIGHT_NAMES),
-	BACK	(2, -1, 0, 1, 3, 0, () -> TurtleCommands.BACK_NAMES),
-	LEFT	(3, 0, -1, 2, 0, 1, () -> TurtleCommands.TURN_LEFT_NAMES);
+	FORWARD	(0, 1, 0, 3, 1, 2),
+	RIGHT	(1, 0, 1, 0, 2, 3),
+	BACK	(2, -1, 0, 1, 3, 0),
+	LEFT	(3, 0, -1, 2, 0, 1);
 	
 	private final int id, tx, ty, left, right, opposite;
-	private final String[] names;
-	private final String baseName;
 	
-	private EnumRot(int id, int tx, int ty, int left, int right, int opposite, Supplier<String[]> names) {
+	private EnumRot(int id, int tx, int ty, int left, int right, int opposite) {
 		this.id = id;
 		this.tx = tx;
 		this.ty = ty;
 		this.left = left;
 		this.right = right;
 		this.opposite = opposite;
-		
-		this.names = names.get();
-		baseName = this.names[0];
 	}
 	
 	public int getId() { return id; }
@@ -35,11 +27,17 @@ public enum EnumRot {
 	public EnumRot getOpposite() { return getFromIdRaw(opposite); }
 	
 	public String[] getNames() {
-		return names;
+		switch (this) {
+		case FORWARD: return Constants.FORWARD_NAMES;
+		case RIGHT: return Constants.TURN_RIGHT_NAMES;
+		case BACK: return Constants.BACK_NAMES;
+		case LEFT: return Constants.TURN_LEFT_NAMES;
+		}
+		throw new RuntimeException("What?");
 	}
 	
 	public String getBaseName() {
-		return baseName;
+		return getNames()[0];
 	}
 	
 	public static EnumRot getFromId(int id) {
@@ -60,13 +58,13 @@ public enum EnumRot {
 			int id = Integer.parseInt(str);
 			return getFromId(id);
 		} catch (NumberFormatException e) {
-			if (Arrays.stream(TurtleCommands.FORWARD_NAMES).anyMatch(s -> s.equalsIgnoreCase(str))) {
+			if (Arrays.stream(Constants.FORWARD_NAMES).anyMatch(s -> s.equalsIgnoreCase(str))) {
 				return EnumRot.FORWARD;
-			} else if (Arrays.stream(TurtleCommands.TURN_RIGHT_NAMES).anyMatch(s -> s.equalsIgnoreCase(str))) {
+			} else if (Arrays.stream(Constants.TURN_RIGHT_NAMES).anyMatch(s -> s.equalsIgnoreCase(str))) {
 				return EnumRot.RIGHT;
-			} else if (Arrays.stream(TurtleCommands.BACK_NAMES).anyMatch(s -> s.equalsIgnoreCase(str))) {
+			} else if (Arrays.stream(Constants.BACK_NAMES).anyMatch(s -> s.equalsIgnoreCase(str))) {
 				return EnumRot.BACK;
-			} else if (Arrays.stream(TurtleCommands.TURN_LEFT_NAMES).anyMatch(s -> s.equalsIgnoreCase(str))) {
+			} else if (Arrays.stream(Constants.TURN_LEFT_NAMES).anyMatch(s -> s.equalsIgnoreCase(str))) {
 				return EnumRot.LEFT;
 			}
 			throw new RuntimeException(String.format("Parse error with \"%s\"", str));

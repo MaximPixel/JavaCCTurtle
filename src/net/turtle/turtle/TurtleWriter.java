@@ -1,8 +1,10 @@
-package net.turtle;
+package net.turtle.turtle;
 
 import java.util.ArrayList;
 
-import net.turtle.command.TurtleCommands;
+import net.turtle.BlockPos;
+import net.turtle.Constants;
+import net.turtle.EnumRot;
 
 public class TurtleWriter extends Turtle {
 	
@@ -18,43 +20,43 @@ public class TurtleWriter extends Turtle {
 	
 	@Override
 	public TurtleActionResult forward() {
-		addCommand(TurtleCommands.FORWARD_NAMES[0]);
+		addCommand(Constants.FORWARD_NAMES[0]);
 		return super.forward();
 	}
 	
 	@Override
 	public TurtleActionResult back() {
-		addCommand(TurtleCommands.BACK_NAMES[0]);
+		addCommand(Constants.BACK_NAMES[0]);
 		return super.back();
 	}
 	
 	@Override
 	public TurtleActionResult up() {
-		addCommand(TurtleCommands.UP_NAMES[0]);
+		addCommand(Constants.UP_NAMES[0]);
 		return super.up();
 	}
 	
 	@Override
 	public TurtleActionResult down() {
-		addCommand(TurtleCommands.DOWN_NAMES[0]);
+		addCommand(Constants.DOWN_NAMES[0]);
 		return super.down();
 	}
 	
 	@Override
 	public TurtleActionResult turnLeft() {
-		addCommand(TurtleCommands.TURN_LEFT_NAMES[0]);
+		addCommand(Constants.TURN_LEFT_NAMES[0]);
 		return super.turnLeft();
 	}
 	
 	@Override
 	public TurtleActionResult turnRight() {
-		addCommand(TurtleCommands.TURN_RIGHT_NAMES[0]);
+		addCommand(Constants.TURN_RIGHT_NAMES[0]);
 		return super.turnRight();
 	}
 	
 	@Override
 	public TurtleActionResult turnAround() {
-		addCommand(TurtleCommands.TURN_AROUND_NAMES[0]);
+		addCommand(Constants.TURN_AROUND_NAMES[0]);
 		return super.turnAround();
 	}
 	

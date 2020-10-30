@@ -1,4 +1,7 @@
-package net.turtle;
+package net.turtle.turtle;
+
+import net.turtle.BlockPos;
+import net.turtle.EnumRot;
 
 public interface ITurtle {
 	

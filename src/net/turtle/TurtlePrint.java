@@ -5,133 +5,24 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+import net.turtle.turtle.ITurtle;
+import net.turtle.turtle.Turtle;
+import net.turtle.turtle.TurtleWriter;
+
 public class TurtlePrint {
-	
-	public static final String[][] pattern = new String[][] {
-		new String[] {
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX"
-		},
-		new String[] {
-				"XXXXXXXX",
-				"X      X",
-				"X       ",
-				"X      X",
-				"XXXXXXXX"
-		},
-		new String[] {
-				"XXXXXXXX",
-				"X      X",
-				"X       ",
-				"X      X",
-				"XXXXXXXX"
-		},
-		new String[] {
-				"XXXXXXXX",
-				"X      X",
-				"X      X",
-				"X      X",
-				"XXXXXXXX"
-		},
-		new String[] {
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX"
-		},
-		new String[] {
-				"XXXXXXXX",
-				"X      X",
-				"X       ",
-				"X      X",
-				"XXXXXXXX"
-		},
-		new String[] {
-				"XXXXXXXX",
-				"X      X",
-				"X       ",
-				"X      X",
-				"XXXXXXXX"
-		},
-		new String[] {
-				"XXXXXXXX",
-				"X      X",
-				"X      X",
-				"X      X",
-				"XXXXXXXX"
-		},
-		new String[] {
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX"
-		},
-		new String[] {
-				"        ",
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"XXXXXXXX",
-				"        "
-		},
-		new String[] {
-				"        ",
-				"        ",
-				"XXXXXXXX",
-				"        ",
-				"        "
-		},
-	};
 	
 	public static TurtleWriter turtle = new TurtleWriter();
 	
 	public static final String blockName = "minecraft:cobblestone";
 	
 	public static void main(String... args) {
-		Structure str = Structure.createFromLayers(pattern);
-		str = str.getZeroStructure();
+		Structure str = ExampleStructures.EXAMPLE;
+		
 		str.print();
 		
 		TurtleWriter turtleCmd = new TurtleWriter();
 		
-		boolean reverseX = false, reverseZ = false;
-		
-		for (int y = 0; y < str.getYSize(); y++) {
-			turtleCmd.up();
-			
-			for (int z = 0; z < str.getZSize(); z++) {
-				int trueZ = reverseZ ? str.getZSize() - z - 1 : z;
-				
-				ArrayList<BlockPos> list = str.getBlocksLine(y, trueZ);
-				if (list.isEmpty()) {
-					continue;
-				}
-				
-				turtleCmd.moveAt(reverseX ? str.getXSize() - 1 : 0, trueZ);
-				turtleCmd.turnAt(reverseX ? EnumRot.BACK : EnumRot.FORWARD);
-				
-				for (int x = 0; x < str.getXSize(); x++) {
-					BlockPos pos = new BlockPos(reverseX ? str.getXSize() - x - 1 : x, y, trueZ);
-					if (str.getBlocks().contains(pos)) {
-						turtleCmd.placeDown(blockName);
-					}
-					if (x != str.getXSize() - 1) {
-						turtleCmd.forward();
-					}
-				}
-				
-				reverseX = !reverseX;
-			}
-			
-			reverseZ = !reverseZ;
-		}
-		
-		turtleCmd.moveAt(0, 0);
-		turtleCmd.turnAt(EnumRot.FORWARD);
+		print(str, turtleCmd);
 		
 		Turtle turtle = new Turtle();
 		
@@ -164,5 +55,42 @@ public class TurtlePrint {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void print(Structure structure, ITurtle turtle) {
+		boolean reverseX = false, reverseZ = false;
+		
+		for (int y = 0; y < structure.getYSize(); y++) {
+			turtle.up();
+			
+			for (int z = 0; z < structure.getZSize(); z++) {
+				int trueZ = reverseZ ? structure.getZSize() - z - 1 : z;
+				
+				ArrayList<BlockPos> list = structure.getBlocksLine(y, trueZ);
+				if (list.isEmpty()) {
+					continue;
+				}
+				
+				turtle.moveAt(reverseX ? structure.getXSize() - 1 : 0, trueZ);
+				turtle.turnAt(reverseX ? EnumRot.BACK : EnumRot.FORWARD);
+				
+				for (int x = 0; x < structure.getXSize(); x++) {
+					BlockPos pos = new BlockPos(reverseX ? structure.getXSize() - x - 1 : x, y, trueZ);
+					if (structure.getBlocks().contains(pos)) {
+						turtle.placeDown(blockName);
+					}
+					if (x != structure.getXSize() - 1) {
+						turtle.forward();
+					}
+				}
+				
+				reverseX = !reverseX;
+			}
+			
+			reverseZ = !reverseZ;
+		}
+		
+		turtle.moveAt(0, 0);
+		turtle.turnAt(EnumRot.FORWARD);
 	}
 }

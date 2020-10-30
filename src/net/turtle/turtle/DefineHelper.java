@@ -12,7 +12,12 @@ public class DefineHelper implements IDefine {
 	}
 
 	@Override
-	public String getValue(String variable) {
+	public String getDefinedValue(String variable) {
 		return variables.get(variable);
+	}
+
+	@Override
+	public boolean hasDefinedValue(String variable) {
+		return variables.containsKey(variable);
 	}
 }

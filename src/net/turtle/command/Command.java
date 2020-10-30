@@ -12,7 +12,7 @@ public abstract class Command {
 		this.names = names;
 		
 		for (String name : names) {
-			TurtleCommands.getInstance().putCommand(name, this);
+			Commands.getInstance().putCommand(name, this);
 		}
 	}
 	

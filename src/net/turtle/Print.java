@@ -5,15 +5,15 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import net.turtle.command.TurtleCommands;
+import net.turtle.command.Commands;
 import net.turtle.turtle.ITurtle;
 import net.turtle.turtle.Turtle;
 import net.turtle.turtle.TurtleWriter;
 
-public class TurtlePrint {
+public class Print {
 	
 	public static void main(String... args) {
-		TurtleCommands.getInstance().register();
+		Commands.getInstance().register();
 		
 		Structure str = ExampleStructures.EXAMPLE;
 		

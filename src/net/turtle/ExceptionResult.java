@@ -1,18 +1,16 @@
 package net.turtle;
 
-public class BaseResult implements IResult {
+public class ExceptionResult implements IResult {
 	
-	private final boolean succ;
 	private final String msg;
 	
-	public BaseResult(boolean succ, String msg) {
-		this.succ = succ;
+	public ExceptionResult(String msg) {
 		this.msg = msg;
 	}
 	
 	@Override
 	public boolean isSuccessful() {
-		return succ;
+		return false;
 	}
 	
 	@Override

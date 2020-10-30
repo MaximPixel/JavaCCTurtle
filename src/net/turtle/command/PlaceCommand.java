@@ -1,7 +1,8 @@
 package net.turtle.command;
 
-import net.turtle.BaseResult;
+import net.turtle.ExceptionResult;
 import net.turtle.IResult;
+import net.turtle.UsageResult;
 import net.turtle.turtle.ITurtle;
 
 public class PlaceCommand extends Command {
@@ -13,6 +14,10 @@ public class PlaceCommand extends Command {
 	public PlaceCommand(String[] names, int placeType) {
 		super(names[0], names);
 		this.placeType = placeType;
+		
+		if (placeType != PLACE && placeType != PLACED && placeType != PLACEU) {
+			throw new IllegalArgumentException("Unknow place type");
+		}
 	}
 
 	@Override
@@ -22,20 +27,29 @@ public class PlaceCommand extends Command {
 		if (args.length >= 1) {
 			ITurtle turtle = context.getTurtle();
 			
-			if (placeType == PLACE) {
-				turtle.place(args[0]);
-				return IResult.FULL_SUCCESSFUL;
-			} else if (placeType == PLACED) {
-				turtle.placeDown(args[0]);
-				return IResult.FULL_SUCCESSFUL;
-			} else if (placeType == PLACEU) {
-				turtle.placeUp(args[0]);
-				return IResult.FULL_SUCCESSFUL;
-			} else {
-				return new BaseResult(false, "Unknown place type " + placeType);
+			String blockArg = args[0];
+			
+			boolean hasDefine = turtle.hasDefinedValue(blockArg);
+			
+			if (hasDefine || blockArg.startsWith("*") || blockArg.endsWith("*")) {
+				if (hasDefine) {
+					blockArg = turtle.getDefinedValue(blockArg);
+				} else {
+					return new ExceptionResult(String.format("\"%s\" not defined", blockArg));
+				}
 			}
+			
+			if (placeType == PLACE) {
+				turtle.place(blockArg);
+			} else if (placeType == PLACED) {
+				turtle.placeDown(blockArg);
+			} else if (placeType == PLACEU) {
+				turtle.placeUp(blockArg);
+			}
+			
+			return IResult.FULL_SUCCESSFUL;
 		} else {
-			return new BaseResult(false, getBaseName() + " <blockname>");
+			return new UsageResult(this, "<blockname>");
 		}
 	}
 }

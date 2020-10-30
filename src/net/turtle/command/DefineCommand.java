@@ -1,7 +1,7 @@
 package net.turtle.command;
 
-import net.turtle.BaseResult;
 import net.turtle.IResult;
+import net.turtle.UsageResult;
 
 public class DefineCommand extends Command {
 
@@ -17,7 +17,7 @@ public class DefineCommand extends Command {
 			context.getTurtle().define(args[0], args[1]);
 			return IResult.FULL_SUCCESSFUL;
 		} else {
-			return new BaseResult(false, getBaseName() + " <variable> <value>");
+			return new UsageResult(this, "<variable> <value>");
 		}
 	}
 }

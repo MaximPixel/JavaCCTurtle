@@ -2,13 +2,13 @@ package net.turtle.turtle;
 
 import java.util.Arrays;
 
-import net.turtle.BaseResult;
+import net.turtle.ExceptionResult;
 import net.turtle.BlockPos;
 import net.turtle.EnumRot;
 import net.turtle.IResult;
 import net.turtle.command.Command;
 import net.turtle.command.CommandContext;
-import net.turtle.command.TurtleCommands;
+import net.turtle.command.Commands;
 
 public interface ITurtle extends IDefine {
 	
@@ -49,7 +49,6 @@ public interface ITurtle extends IDefine {
 	default IResult executeCommands(Iterable<String> commands) {
 		for (String cmd : commands) {
 			IResult result = executeCommand(cmd);
-			System.out.println(cmd + " " + result.getMessage());
 			
 			if (!result.isSuccessful()) {
 				System.out.println(result.getMessage());
@@ -65,10 +64,10 @@ public interface ITurtle extends IDefine {
 		if (words.length >= 1) {
 			String[] args = Arrays.copyOfRange(words, 1, words.length);
 			
-			Command baseCommand = TurtleCommands.getInstance().getCommandByName(words[0]);
+			Command baseCommand = Commands.getInstance().getCommandByName(words[0]);
 			
 			if (baseCommand == null) {
-				return new BaseResult(false, "Unknown command " + words[0]);
+				return new ExceptionResult("Unknown command " + words[0]);
 			}
 			
 			CommandContext context = new CommandContext(this, args);
@@ -79,7 +78,7 @@ public interface ITurtle extends IDefine {
 		}
 	}
 	
-	DefineHelper getDefineHelper();
+	IDefine getDefineHelper();
 	
 	@Override
 	default void define(String variable, String value) {
@@ -87,7 +86,12 @@ public interface ITurtle extends IDefine {
 	}
 
 	@Override
-	default String getValue(String variable) {
-		return getDefineHelper().getValue(variable);
+	default String getDefinedValue(String variable) {
+		return getDefineHelper().getDefinedValue(variable);
+	}
+
+	@Override
+	default boolean hasDefinedValue(String variable) {
+		return getDefineHelper().hasDefinedValue(variable);
 	}
 }

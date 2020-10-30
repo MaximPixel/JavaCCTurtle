@@ -4,10 +4,9 @@ import java.util.HashMap;
 
 import net.turtle.Constants;
 
-public final class TurtleCommands {
+public final class Commands {
 	
-	public static BaseCommand FORWARD, BACK, UP, DOWN;
-	public static BaseCommand TURN_LEFT, TURN_RIGHT, TURN_AROUND;
+	public static BaseCommand FORWARD, BACK, UP, DOWN, TURN_LEFT, TURN_RIGHT, TURN_AROUND;
 	public static TurnAtCommand TURN_AT;
 	public static PlaceCommand PLACE, PLACED, PLACEU;
 	public static DefineCommand DEFINE;
@@ -29,21 +28,17 @@ public final class TurtleCommands {
 		PLACEU = new PlaceCommand(Constants.PLACEU, PlaceCommand.PLACEU);
 		
 		DEFINE = new DefineCommand(Constants.DEFINE);
-		
-		for (String name : getInstance().commandsByName.keySet()) {
-			System.out.println(name);
-		}
 	}
 	
-	private static TurtleCommands instance = new TurtleCommands();
+	private static Commands instance = new Commands();
 	
-	public static TurtleCommands getInstance() {
+	public static Commands getInstance() {
 		return instance;
 	}
 	
 	private final HashMap<String, Command> commandsByName;
 	
-	private TurtleCommands() {
+	private Commands() {
 		commandsByName = new HashMap();
 	}
 	

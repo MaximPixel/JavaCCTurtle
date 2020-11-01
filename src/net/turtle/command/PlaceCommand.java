@@ -26,33 +26,19 @@ public class PlaceCommand extends Command {
 		
 		if (args.length >= 1) {
 			ITurtle turtle = context.getTurtle();
-
-			String blockArg = args[0];
-
-			boolean start = blockArg.startsWith("*");
-			boolean end = blockArg.endsWith("*");
 			
-			if (start) {
-				blockArg = blockArg.substring(1);
-			}
-			if (end) {
-				blockArg = blockArg.substring(0, blockArg.length() - 1);
-			}
-			
-			boolean hasDefine = turtle.hasDefine(blockArg);
-			
-			if (hasDefine) {
-				blockArg = turtle.getDefine(blockArg);
-			} else if (start || end) {
-				return new ExceptionResult(String.format("\"%s\" not defined", blockArg));
-			}
-			
-			if (placeType == PLACE) {
-				turtle.place(blockArg);
-			} else if (placeType == PLACED) {
-				turtle.placeDown(blockArg);
-			} else if (placeType == PLACEU) {
-				turtle.placeUp(blockArg);
+			try {
+				String blockArg = turtle.getRealArgumentValue(args[0]);
+				
+				if (placeType == PLACE) {
+					turtle.place(blockArg);
+				} else if (placeType == PLACED) {
+					turtle.placeDown(blockArg);
+				} else if (placeType == PLACEU) {
+					turtle.placeUp(blockArg);
+				}
+			} catch (Exception e) {
+				return new ExceptionResult(e.getMessage());
 			}
 			
 			return IResult.FULL_SUCCESSFUL;

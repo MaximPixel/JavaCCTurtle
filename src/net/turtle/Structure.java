@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.turtle.math.BlockPos;
+import net.turtle.math.Utils;
 
 public class Structure {
 	
 	private HashMap<BlockPos, String> blocks = new HashMap();
+	
+	private HashMap<String, Integer> requiredBlocks;
 	
 	private int minX, minY, minZ, maxX, maxY, maxZ;
 	
@@ -30,12 +33,12 @@ public class Structure {
 					if (block) {
 						BlockPos pos = new BlockPos(c + offset.getX(), a + offset.getY(), b + offset.getZ());
 						
-						newStr.blocks.put(pos, blockName);
+						newStr.getBlocks().put(pos, blockName);
 					}
 				}
 			}
 		}
-		newStr.refreshSizes();
+		newStr.refresh();
 		
 		return newStr;
 	}
@@ -53,12 +56,12 @@ public class Structure {
 					if (block) {
 						BlockPos pos = new BlockPos(c + offset.getX(), a + offset.getY(), b + offset.getZ());
 						
-						newStr.blocks.put(pos, blockName);
+						newStr.getBlocks().put(pos, blockName);
 					}
 				}
 			}
 		}
-		newStr.refreshSizes();
+		newStr.refresh();
 		
 		return newStr;
 	}
@@ -68,25 +71,24 @@ public class Structure {
 	}
 	
 	public Structure(HashMap<BlockPos, String> blocks, BlockPos offset) {
-		blocks.forEach(this.blocks::put);
-		refreshSizes();
+		blocks.forEach(this.getBlocks()::put);
+		refresh();
 	}
 	
 	public Structure getZeroStructure() {
 		return new Structure(getBlocks(), new BlockPos(-minX, -minY, -minZ));
 	}
 	
-	public void setBlock(BlockPos pos, String blockName) {
-		blocks.put(pos, blockName);
+	private void refresh() {
 		refreshSizes();
+		refreshRequirements();
 	}
 	
-	public void removeBlock(BlockPos pos) {
-		blocks.remove(pos);
-		refreshSizes();
+	private void refreshRequirements() {
+		requiredBlocks = Utils.countValues(getBlocks().values());
 	}
 	
-	public void refreshSizes() {
+	private void refreshSizes() {
 		minX = Integer.MAX_VALUE;
 		minY = Integer.MAX_VALUE;
 		minZ = Integer.MAX_VALUE;
@@ -94,7 +96,7 @@ public class Structure {
 		maxY = Integer.MIN_VALUE;
 		maxZ = Integer.MIN_VALUE;
 		
-		for (BlockPos pos : blocks.keySet()) {
+		for (BlockPos pos : getBlocks().keySet()) {
 			int x = pos.getX(), y = pos.getY(), z = pos.getZ();
 			if (x < minX) {
 				minX = x;
@@ -117,12 +119,20 @@ public class Structure {
 		}
 	}
 	
-	public HashMap<BlockPos, String> getBlocks() {
+	private HashMap<BlockPos, String> getBlocks() {
 		return blocks;
 	}
 	
 	public String getBlockAt(BlockPos pos) {
 		return getBlocks().get(pos);
+	}
+	
+	public boolean hasBlockAt(BlockPos pos) {
+		return getBlocks().containsKey(pos);
+	}
+	
+	public HashMap<String, Integer> getRequiredBlocks() {
+		return requiredBlocks;
 	}
 
 	public int getMinX() {
@@ -160,12 +170,18 @@ public class Structure {
 	public int getZSize() {
 		return maxZ - minZ + 1;
 	}
-
+	
 	public void print() {
-		System.out.println("============");
 		System.out.println(toString());
+		
+		System.out.println();
+		
+		Utils.countValues(getBlocks().values()).forEach((block, count) -> {
+			System.out.println(block + " x" + count);
+		});
+		
 		for (int a = minY; a <= maxY; a++) {
-			System.out.println("");
+			System.out.println();
 			for (int b = minZ; b <= maxZ; b++) {
 				String line = "";
 				for (int c = minX; c <= maxX; c++) {
@@ -176,7 +192,6 @@ public class Structure {
 				System.out.println("\"" + line + "\"");
 			}
 		}
-		System.out.println("============");
 	}
 	
 	public ArrayList<BlockPos> getBlocksLine(int y, int z) {

@@ -16,6 +16,23 @@ public class Vector2i {
 	public int getY() {
 		return y;
 	}
+	
+	public Vector2i add(int x, int y) {
+		return new Vector2i(getX() + x, getY() + y);
+	}
+	
+	public Vector2i offset(EnumRot rot) {
+		return offset(rot, 1);
+	}
+	
+	public Vector2i offset(EnumRot rot, int n) {
+		return new Vector2i(getX() + rot.getTransformX() * n, getY() + rot.getTransformY() * n);
+	}
+
+	@Override
+	public String toString() {
+		return "Vec2i [" + x + " " + y + "]";
+	}
 
 	@Override
 	public int hashCode() {

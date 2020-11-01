@@ -10,6 +10,8 @@ public class TurtleWriter extends Turtle {
 	
 	private ArrayList<String> commands = new ArrayList();
 	
+	private int spentFuel;
+	
 	public TurtleWriter() {
 		super();
 	}
@@ -20,24 +22,28 @@ public class TurtleWriter extends Turtle {
 	
 	@Override
 	public TurtleActionResult forward() {
+		spentFuel++;
 		addCommand(Constants.FORWARD_NAMES[0]);
 		return super.forward();
 	}
 	
 	@Override
 	public TurtleActionResult back() {
+		spentFuel++;
 		addCommand(Constants.BACK_NAMES[0]);
 		return super.back();
 	}
 	
 	@Override
 	public TurtleActionResult up() {
+		spentFuel++;
 		addCommand(Constants.UP_NAMES[0]);
 		return super.up();
 	}
 	
 	@Override
 	public TurtleActionResult down() {
+		spentFuel++;
 		addCommand(Constants.DOWN_NAMES[0]);
 		return super.down();
 	}
@@ -102,5 +108,9 @@ public class TurtleWriter extends Turtle {
 	
 	public ArrayList<String> getCommands() {
 		return commands;
+	}
+	
+	public int getSpentFuel() {
+		return spentFuel;
 	}
 }

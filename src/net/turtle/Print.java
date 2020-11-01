@@ -73,7 +73,7 @@ public class Print {
 	}
 	
 	public static void saveCode(File file, Collection<String> commands) throws IOException {
-		System.out.println("Saving code with " + commands.size() + " lines...");
+		System.out.println("Saving " + file.getName() + " with " + commands.size() + " lines...");
 		Files.write(file.toPath(), commands, Charset.forName("UTF-8"));
 	}
 }

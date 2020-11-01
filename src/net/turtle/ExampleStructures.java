@@ -82,5 +82,5 @@ public final class ExampleStructures {
 		},
 	};
 	
-	public static final Structure EXAMPLE = Structure.createFromLayers(PATTERN).getZeroStructure();
+	public static final Structure EXAMPLE = Structure.createFromLayers(PATTERN, "minecraft:cobblestone").getZeroStructure();
 }

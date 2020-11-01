@@ -1,7 +1,7 @@
 package net.turtle.command;
 
-import net.turtle.EnumRot;
 import net.turtle.IResult;
+import net.turtle.math.EnumRot;
 
 public class TurnAtCommand extends Command {
 
@@ -15,7 +15,7 @@ public class TurnAtCommand extends Command {
 		try {
 			if (args.length > 0) {
 				EnumRot rot = EnumRot.parseFromString(args[0]);
-				return context.getTurtle().turnAt(rot);
+				return context.getTurtle().getMoveHelper().turnAt(rot);
 			}
 		} catch (Exception e) {}
 		

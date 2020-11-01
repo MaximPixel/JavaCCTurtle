@@ -9,8 +9,10 @@ import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.IntTag;
 import net.querz.nbt.tag.ListTag;
 import net.querz.nbt.tag.StringTag;
+import net.turtle.math.BlockPos;
+import net.turtle.math.BlockState;
 
-public class Utils {
+public class NbtLoader {
 
 	public static void main(String[] args) throws IOException {
 		File file = new File("input/snowy_tannery_1.nbt");
@@ -67,40 +69,5 @@ public class Utils {
 		}
 		
 		return poses;
-	}
-	
-	public static class BlockState {
-		
-		private final String name;
-		private final HashMap<String, String> properties;
-		
-		public BlockState(String name) {
-			this(name, null);
-		}
-		
-		public BlockState(String name, HashMap<String, String> properties) {
-			this.name = name;
-			if (properties != null && properties.isEmpty()) {
-				properties = null;
-			}
-			this.properties = properties;
-		}
-		
-		public String getName() {
-			return name;
-		}
-		
-		public boolean hasProperties() {
-			return properties != null;
-		}
-		
-		public HashMap<String, String> getProperties() {
-			return properties;
-		}
-
-		@Override
-		public String toString() {
-			return "BlockState [name=" + name + ", properties=" + properties + "]";
-		}
 	}
 }

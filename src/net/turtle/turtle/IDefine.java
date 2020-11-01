@@ -4,7 +4,11 @@ public interface IDefine {
 	
 	void define(String variable, String value);
 	
-	String getDefinedValue(String variable);
+	String getDefine(String variable);
 	
-	boolean hasDefinedValue(String variable);
+	boolean hasDefine(String variable);
+	
+	String getDefineByValue(String value);
+	
+	boolean hasDefineByValue(String value);
 }

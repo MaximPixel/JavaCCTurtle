@@ -1,6 +1,8 @@
-package net.turtle;
+package net.turtle.math;
 
 import java.util.Arrays;
+
+import net.turtle.Constants;
 
 public enum EnumRot {
 	FORWARD	(0, 1, 0, 3, 1, 2),

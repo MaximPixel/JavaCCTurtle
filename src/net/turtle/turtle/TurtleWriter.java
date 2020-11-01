@@ -2,9 +2,9 @@ package net.turtle.turtle;
 
 import java.util.ArrayList;
 
-import net.turtle.BlockPos;
 import net.turtle.Constants;
-import net.turtle.EnumRot;
+import net.turtle.math.BlockPos;
+import net.turtle.math.EnumRot;
 
 public class TurtleWriter extends Turtle {
 	
@@ -88,6 +88,12 @@ public class TurtleWriter extends Turtle {
 	public void define(String variable, String value) {
 		addCommand(Constants.DEFINE[0] + " " + variable + " " + value);
 		super.define(variable, value);
+	}
+	
+	@Override
+	public boolean checkBlocks(String block, int amount) {
+		addCommand(Constants.CHECK[0] + " " + block + " " + amount);
+		return super.checkBlocks(block, amount);
 	}
 	
 	public void addCommand(String command) {

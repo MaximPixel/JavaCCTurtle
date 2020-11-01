@@ -27,7 +27,7 @@ public class CheckCommand extends Command {
 				amount = 1;
 			}
 			
-			if (context.getTurtle().hasBlocks(blockName, amount)) {
+			if (context.getTurtle().checkBlocks(blockName, amount)) {
 				return IResult.SKIP;
 			} else {
 				return new ExceptionResult(String.format("Turtle has no \"%s\" in the amount of %s", blockName, amount));

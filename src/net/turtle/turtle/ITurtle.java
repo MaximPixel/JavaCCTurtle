@@ -3,12 +3,12 @@ package net.turtle.turtle;
 import java.util.Arrays;
 
 import net.turtle.ExceptionResult;
-import net.turtle.BlockPos;
-import net.turtle.EnumRot;
 import net.turtle.IResult;
 import net.turtle.command.Command;
 import net.turtle.command.CommandContext;
 import net.turtle.command.Commands;
+import net.turtle.math.BlockPos;
+import net.turtle.math.EnumRot;
 
 public interface ITurtle extends IDefine, ICheck {
 	
@@ -25,12 +25,6 @@ public interface ITurtle extends IDefine, ICheck {
 	TurtleActionResult turnRight();
 	
 	TurtleActionResult turnAround();
-	
-	TurtleActionResult turnAt(EnumRot rot);
-	
-	TurtleActionResult turnForMove(int x, int y);
-	
-	TurtleActionResult moveAt(int x, int y);
 	
 	TurtleActionResult select(int selectedSlot);
 	
@@ -51,7 +45,6 @@ public interface ITurtle extends IDefine, ICheck {
 			IResult result = executeCommand(cmd);
 			
 			if (!result.isSuccessful()) {
-				System.out.println(result.getMessage());
 				return result;
 			}
 		}
@@ -80,23 +73,35 @@ public interface ITurtle extends IDefine, ICheck {
 	
 	IDefine getDefineHelper();
 	
+	IMoveHelper getMoveHelper();
+	
 	@Override
 	default void define(String variable, String value) {
 		getDefineHelper().define(variable, value);
 	}
 
 	@Override
-	default String getDefinedValue(String variable) {
-		return getDefineHelper().getDefinedValue(variable);
+	default String getDefine(String variable) {
+		return getDefineHelper().getDefine(variable);
 	}
 
 	@Override
-	default boolean hasDefinedValue(String variable) {
-		return getDefineHelper().hasDefinedValue(variable);
+	default boolean hasDefine(String variable) {
+		return getDefineHelper().hasDefine(variable);
 	}
 	
 	@Override
-	default boolean hasBlocks(String block, int amount) {
+	default String getDefineByValue(String value) {
+		return getDefineHelper().getDefineByValue(value);
+	}
+	
+	@Override
+	default boolean hasDefineByValue(String value) {
+		return getDefineHelper().hasDefineByValue(value);
+	}
+	
+	@Override
+	default boolean checkBlocks(String block, int amount) {
 		return true;
 	}
 }

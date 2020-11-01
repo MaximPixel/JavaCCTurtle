@@ -1,4 +1,4 @@
-package net.turtle;
+package net.turtle.math;
 
 public class BlockPos {
 	

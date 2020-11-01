@@ -1,8 +1,8 @@
 package net.turtle.turtle;
 
-import net.turtle.BlockPos;
-import net.turtle.EnumRot;
 import net.turtle.IBlocksListener;
+import net.turtle.math.BlockPos;
+import net.turtle.math.EnumRot;
 
 public class Turtle implements ITurtle {
 	
@@ -13,6 +13,8 @@ public class Turtle implements ITurtle {
 	private IBlocksListener blocksListener;
 	
 	private DefineHelper defineHelper = new DefineHelper();
+	
+	private MoveHelper moveHelper = new MoveHelper(this);
 	
 	public Turtle() {
 		this(BlockPos.ZERO, EnumRot.FORWARD);
@@ -66,43 +68,6 @@ public class Turtle implements ITurtle {
 	}
 
 	@Override
-	public TurtleActionResult turnAt(EnumRot rot) {
-		if (getRot().getLeft() == rot) {
-			turnLeft();
-		} else if (getRot().getRight() == rot) {
-			turnRight();
-		} else if (getRot().getOpposite() == rot) {
-			turnAround();
-		}
-		return new TurtleActionResult(true);
-	}
-
-	@Override
-	public TurtleActionResult turnForMove(int x, int z) {
-		if (x != getPos().getX() || z != getPos().getZ()) {
-			if (x > getPos().getX()) {
-				turnAt(EnumRot.FORWARD);
-			} else if (z > getPos().getZ()) {
-				turnAt(EnumRot.RIGHT);
-			} else if (x < getPos().getX()) {
-				turnAt(EnumRot.BACK);
-			} else if (z < getPos().getZ()) {
-				turnAt(EnumRot.LEFT);
-			}
-		}
-		return new TurtleActionResult(true);
-	}
-
-	@Override
-	public TurtleActionResult moveAt(int x, int z) {
-		while (x != getPos().getX() || z != getPos().getZ()) {
-			turnForMove(x, z);
-			forward();
-		}
-		return new TurtleActionResult(true);
-	}
-
-	@Override
 	public TurtleActionResult select(int selectedSlot) {
 		this.selectedSlot = selectedSlot;
 		return new TurtleActionResult(true);
@@ -111,7 +76,7 @@ public class Turtle implements ITurtle {
 	@Override
 	public TurtleActionResult place(String blockName) {
 		if (blocksListener != null) {
-			blocksListener.addBlock(pos.offset(rot));
+			blocksListener.addBlock(pos.offset(rot), blockName);
 		}
 		return new TurtleActionResult(true);
 	}
@@ -119,7 +84,7 @@ public class Turtle implements ITurtle {
 	@Override
 	public TurtleActionResult placeDown(String blockName) {
 		if (blocksListener != null) {
-			blocksListener.addBlock(pos.add(0, -1, 0));
+			blocksListener.addBlock(pos.add(0, -1, 0), blockName);
 		}
 		return new TurtleActionResult(true);
 	}
@@ -127,7 +92,7 @@ public class Turtle implements ITurtle {
 	@Override
 	public TurtleActionResult placeUp(String blockName) {
 		if (blocksListener != null) {
-			blocksListener.addBlock(pos.add(0, 1, 0));
+			blocksListener.addBlock(pos.add(0, 1, 0), blockName);
 		}
 		return new TurtleActionResult(true);
 	}
@@ -159,5 +124,10 @@ public class Turtle implements ITurtle {
 	@Override
 	public DefineHelper getDefineHelper() {
 		return defineHelper;
+	}
+
+	@Override
+	public IMoveHelper getMoveHelper() {
+		return moveHelper;
 	}
 }

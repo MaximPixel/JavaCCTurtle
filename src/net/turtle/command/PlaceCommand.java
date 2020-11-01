@@ -16,7 +16,7 @@ public class PlaceCommand extends Command {
 		this.placeType = placeType;
 		
 		if (placeType != PLACE && placeType != PLACED && placeType != PLACEU) {
-			throw new IllegalArgumentException("Unknow place type");
+			throw new IllegalArgumentException("Unknown place type");
 		}
 	}
 
@@ -26,17 +26,25 @@ public class PlaceCommand extends Command {
 		
 		if (args.length >= 1) {
 			ITurtle turtle = context.getTurtle();
-			
+
 			String blockArg = args[0];
+
+			boolean start = blockArg.startsWith("*");
+			boolean end = blockArg.endsWith("*");
 			
-			boolean hasDefine = turtle.hasDefinedValue(blockArg);
+			if (start) {
+				blockArg = blockArg.substring(1);
+			}
+			if (end) {
+				blockArg = blockArg.substring(0, blockArg.length() - 1);
+			}
 			
-			if (hasDefine || blockArg.startsWith("*") || blockArg.endsWith("*")) {
-				if (hasDefine) {
-					blockArg = turtle.getDefinedValue(blockArg);
-				} else {
-					return new ExceptionResult(String.format("\"%s\" not defined", blockArg));
-				}
+			boolean hasDefine = turtle.hasDefine(blockArg);
+			
+			if (hasDefine) {
+				blockArg = turtle.getDefine(blockArg);
+			} else if (start || end) {
+				return new ExceptionResult(String.format("\"%s\" not defined", blockArg));
 			}
 			
 			if (placeType == PLACE) {
@@ -49,7 +57,7 @@ public class PlaceCommand extends Command {
 			
 			return IResult.FULL_SUCCESSFUL;
 		} else {
-			return new UsageResult(this, "<blockname>");
+			return new UsageResult(this, "<blockname> or <variable>");
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package net.turtle.math;
 
+import java.util.Objects;
+
 public class BlockPos {
 
     public static final BlockPos ZERO = new BlockPos(0, 0, 0);
@@ -28,59 +30,33 @@ public class BlockPos {
         return new BlockPos(getX() + x, getY() + y, getZ() + z);
     }
 
-    public BlockPos add(BlockPos pos) {
-        return new BlockPos(getX() + pos.getX(), getY() + pos.getY(), getZ() + pos.getZ());
-    }
-
     public BlockPos offset(EnumRot rot) {
-        return offset(rot, 1);
+        return add(rot.getTransformX(), 0, rot.getTransformY());
     }
 
     public BlockPos offset(EnumRot rot, int n) {
-        return new BlockPos(getX() + rot.getTransformX() * n, getY(), getZ() + rot.getTransformY() * n);
+        return add(rot.getTransformX() * n, 0, rot.getTransformY() * n);
     }
 
-    public int getDistanceSq(BlockPos pos) {
-        int xx = pos.getX() - getX();
-        int yy = pos.getY() - getY();
-        int zz = pos.getZ() - getZ();
-        return xx * xx + yy * yy + zz * zz;
-    }
-
-    public double getDistance(BlockPos pos) {
-        return Math.sqrt(getDistanceSq(pos));
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BlockPos blockPos = (BlockPos) o;
+        return x == blockPos.x && y == blockPos.y && z == blockPos.z;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + x;
-        result = prime * result + y;
-        result = prime * result + z;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        BlockPos other = (BlockPos) obj;
-        if (x != other.x)
-            return false;
-        if (y != other.y)
-            return false;
-        if (z != other.z)
-            return false;
-        return true;
+        return Objects.hash(x, y, z);
     }
 
     @Override
     public String toString() {
-        return "BlockPos [x=" + x + ", y=" + y + ", z=" + z + "]";
+        return "BlockPos{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
 }

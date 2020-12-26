@@ -12,7 +12,7 @@ public enum EnumRot {
 
     private final int id, tx, ty, left, right, opposite;
 
-    private EnumRot(int id, int tx, int ty, int left, int right, int opposite) {
+    EnumRot(int id, int tx, int ty, int left, int right, int opposite) {
         this.id = id;
         this.tx = tx;
         this.ty = ty;

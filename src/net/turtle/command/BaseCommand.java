@@ -12,7 +12,7 @@ public class BaseCommand extends Command {
     }
 
     @Override
-    public IResult execute(CommandContext context) {
+    public IResult execute(ICommandContext context) {
         return executor.execute(context);
     }
 }

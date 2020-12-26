@@ -4,5 +4,5 @@ import net.turtle.IResult;
 
 public interface ICommandExecute {
 
-    IResult execute(CommandContext context);
+    IResult execute(ICommandContext context);
 }

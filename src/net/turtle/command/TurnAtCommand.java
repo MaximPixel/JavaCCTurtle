@@ -10,7 +10,7 @@ public class TurnAtCommand extends Command {
     }
 
     @Override
-    public IResult execute(CommandContext context) {
+    public IResult execute(ICommandContext context) {
         String[] args = context.getArguments();
         try {
             if (args.length > 0) {

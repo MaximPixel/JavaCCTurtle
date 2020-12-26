@@ -21,7 +21,7 @@ public class PlaceCommand extends Command {
     }
 
     @Override
-    public IResult execute(CommandContext context) {
+    public IResult execute(ICommandContext context) {
         String[] args = context.getArguments();
 
         if (args.length >= 1) {
